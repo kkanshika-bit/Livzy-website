@@ -4,214 +4,172 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Livzy | Pune Student Living</title>
-
 <style>
-body{
-margin:0;
-font-family: 'Segoe UI', sans-serif;
-background: linear-gradient(135deg,#0f0c29,#302b63,#24243e);
-color:white;
-overflow-x:hidden;
-}
+    :root {
+        --glass: rgba(255, 255, 255, 0.1);
+        --accent: #00f2ff;
+    }
+    body {
+        margin: 0; font-family: 'Poppins', sans-serif;
+        background: radial-gradient(circle at center, #1a1a2e, #16213e, #0f3460);
+        color: white; overflow: hidden; height: 100vh;
+    }
 
-h1,h2,h3{
-margin:0;
-}
+    /* 3D Perspective Container */
+    .container {
+        display: flex; height: 100vh; perspective: 1000px;
+    }
 
-.container{
-display:flex;
-height:100vh;
-}
+    /* Sidebar Styling */
+    .sidebar {
+        width: 250px; background: var(--glass);
+        backdrop-filter: blur(15px); padding: 30px;
+        border-right: 1px solid rgba(255,255,255,0.1);
+    }
 
-.sidebar{
-width:220px;
-background: rgba(255,255,255,0.05);
-backdrop-filter: blur(10px);
-padding:20px;
-box-shadow:0 0 30px rgba(0,0,0,0.5);
-}
+    .tab {
+        padding: 18px; margin-bottom: 20px;
+        font-weight: 900; border-radius: 15px;
+        cursor: pointer; transition: 0.5s;
+        background: rgba(255, 255, 255, 0.05);
+        text-transform: uppercase; letter-spacing: 1px;
+    }
 
-.sidebar h2{
-margin-bottom:30px;
-font-size:22px;
-}
+    /* The 3D Rotation Effect */
+    .tab:hover {
+        transform: rotateY(25deg) translateZ(20px);
+        background: var(--accent); color: #000;
+        box-shadow: -10px 0 20px rgba(0, 242, 255, 0.3);
+    }
 
-.tab{
-padding:15px;
-margin-bottom:15px;
-font-weight:bold;
-border-radius:12px;
-cursor:pointer;
-transition:0.4s;
-background: rgba(255,255,255,0.05);
-}
+    .main { flex: 1; padding: 40px; overflow-y: auto; scroll-behavior: smooth; }
 
-.tab:hover{
-transform:rotateY(15deg) scale(1.05);
-background:rgba(0,255,255,0.2);
-}
+    .card {
+        background: var(--glass); backdrop-filter: blur(10px);
+        padding: 25px; border-radius: 20px; margin-bottom: 25px;
+        border: 1px solid rgba(255,255,255,0.1);
+        transition: 0.4s;
+    }
 
-.main{
-flex:1;
-padding:30px;
-overflow-y:auto;
-}
+    .card:hover { transform: scale(1.02) translateZ(30px); border-color: var(--accent); }
 
-.card{
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(15px);
-padding:20px;
-border-radius:20px;
-margin-bottom:20px;
-box-shadow:0 10px 40px rgba(0,0,0,0.5);
-transition:0.4s;
-}
+    .subscription-panel {
+        width: 300px; padding: 20px; background: rgba(0,0,0,0.2);
+    }
 
-.card:hover{
-transform:translateY(-10px) scale(1.03);
-}
+    .hidden { display: none !important; }
 
-.star{
-color:gold;
-font-size:18px;
-}
+    /* Modal for Location */
+    #location-screen {
+        position: fixed; top:0; left:0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.9); display: flex; 
+        justify-content: center; align-items: center; z-index: 999;
+    }
 
-.subscription{
-position:absolute;
-right:20px;
-top:20px;
-width:250px;
-}
-
-.plan{
-background:rgba(255,255,255,0.1);
-padding:20px;
-margin-bottom:15px;
-border-radius:20px;
-transition:0.4s;
-}
-
-.plan:hover{
-transform:scale(1.05);
-background:rgba(0,255,255,0.2);
-}
-
-button{
-padding:10px 20px;
-border:none;
-border-radius:20px;
-background:cyan;
-cursor:pointer;
-font-weight:bold;
-}
-
-.hero{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-text-align:center;
-animation:fadeIn 2s ease;
-}
-
-.hero h1{
-font-size:50px;
-margin-bottom:20px;
-}
-
-.hero button{
-margin:10px;
-}
-
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(30px);}
-to{opacity:1; transform:translateY(0);}
-}
-
-.hidden{
-display:none;
-}
+    .btn-buy {
+        background: var(--accent); color: black; padding: 10px 20px;
+        border-radius: 50px; border: none; font-weight: bold; cursor: pointer;
+    }
 </style>
 </head>
-
 <body>
 
-<div class="hero" id="landing">
-<h1>Livzy</h1>
-<h3>Find Your Safe Space in Pune</h3>
-<button onclick="enterSite()">Sign in as Student</button>
-<button onclick="enterSite()">Sign in as Parent</button>
+<div class="hero" id="landing" style="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <h1 style="font-size: 4rem;">LIVZY</h1>
+    <p>Premium Living for Pune Students</p>
+    <div>
+        <button class="btn-buy" onclick="showLocation('Student')">Sign in as Student</button>
+        <button class="btn-buy" onclick="showLocation('Parent')">Sign in as Parent</button>
+    </div>
+</div>
+
+<div id="location-screen" class="hidden">
+    <div class="card" style="text-align: center;">
+        <h2>Enter Your Location in Pune</h2>
+        <input type="text" id="locInput" placeholder="e.g. Kothrud, Viman Nagar" style="padding: 10px; border-radius: 5px; width: 80%;">
+        <br><br>
+        <button class="btn-buy" onclick="startDashboard()">Enter Livzy</button>
+    </div>
 </div>
 
 <div class="container hidden" id="dashboard">
+    <div class="sidebar">
+        <h2 style="color: var(--accent);">LIVZY</h2>
+        <div class="tab" onclick="filterContent('pg')"><b>PG</b></div>
+        <div class="tab" onclick="filterContent('flat')"><b>Flat</b></div>
+        <div class="tab" onclick="filterContent('mess')"><b>Mess</b></div>
+        <div class="tab" onclick="filterContent('entertainment')"><b>Entertainment</b></div>
+    </div>
 
-<div class="sidebar">
-<h2>LIVZY</h2>
-<div class="tab">PG</div>
-<div class="tab">FLAT</div>
-<div class="tab">MESS</div>
-<div class="tab">ENTERTAINMENT</div>
-</div>
+    <div class="main" id="content-area">
+        <h1 id="category-title">Top Suggestions in Pune</h1>
+        <div id="listings">
+            </div>
+    </div>
 
-<div class="main">
-<h1>Famous PGs in Pune</h1>
-
-<div class="card">
-<h3>Stanza Living <span class="star">⭐</span></h3>
-<p>24hrs Water | WiFi | Parking | Electricity Included</p>
-<p>₹10,000 / month</p>
-</div>
-
-<div class="card">
-<h3>Mahadev PG <span class="star">⭐</span></h3>
-<p>24hrs Water | WiFi | Security | Parental Control Available</p>
-<p>₹8,500 / month</p>
-</div>
-
-<div class="card">
-<h3>Veg Mess - FC Road</h3>
-<p>Weekly Menu | Hygienic | ₹3,000 / month</p>
-</div>
-
-<div class="card">
-<h3>Third Space - Entertainment</h3>
-<p>Indoor Games | Study Lounge | Café Hangout</p>
-</div>
-
-</div>
-
-<div class="subscription">
-<div class="plan">
-<h3>Student 3 Month</h3>
-<p>₹299</p>
-<p>No brokerage | Full Access</p>
-<button>Buy Now</button>
-</div>
-
-<div class="plan">
-<h3>Parental Monthly</h3>
-<p>₹199</p>
-<p>Supervision Access</p>
-<button>Buy Now</button>
-</div>
-
-<div class="plan">
-<h3>Parental Yearly</h3>
-<p>₹1799</p>
-<p>Full Year Supervision</p>
-<button>Buy Now</button>
-</div>
-</div>
-
+    <div class="subscription-panel">
+        <h3 style="text-align:center">Premium Plans</h3>
+        <div class="card" style="font-size: 0.9rem;">
+            <h4>Student 3 Month</h4>
+            <p>₹299</p>
+            <ul><li>No Brokerage</li><li>Full Access</li></ul>
+            <button class="btn-buy" onclick="alert('Premium logic: Now showing same-college student suggestions!')">Upgrade</button>
+        </div>
+        <div class="card" style="font-size: 0.9rem;">
+            <h4>Parental Yearly</h4>
+            <p>₹1799</p>
+            <p><small>Save 2 months brokerage! Monitor entry/exit times for safety.</small></p>
+            <button class="btn-buy">Secure Child</button>
+        </div>
+    </div>
 </div>
 
 <script>
-function enterSite(){
-document.getElementById("landing").classList.add("hidden");
-document.getElementById("dashboard").classList.remove("hidden");
+const data = {
+    pg: [
+        { name: "Stanza Living", star: true, desc: "WiFi, 24hr Water, Parking, Electricity", price: "₹12,000", safety: "Parental Control Available" },
+        { name: "Mahadev PG", star: true, desc: "Near College, Home Food, Security", price: "₹9,000", safety: "Standard Security" }
+    ],
+    flat: [
+        { name: "Magarpatta City Apt", star: false, desc: "Full Furnished 2BHK", price: "₹25,000", safety: "Gated Community" },
+        { name: "Kothrud Semi-Furnished", star: false, desc: "Semi-Furnished, Balcony", price: "₹18,000", safety: "CCTV" }
+    ],
+    mess: [
+        { name: "Annapurna Veg", star: false, desc: "Pure Veg | Weekly Menu: Paneer, Dal, Roti", price: "₹3,500/mo", safety: "" }
+    ],
+    entertainment: [
+        { name: "Third Space", star: false, desc: "Indoor Sports, Café, Library", price: "Entry ₹200", safety: "Safe Student Zone" }
+    ]
+};
+
+function showLocation() {
+    document.getElementById("landing").classList.add("hidden");
+    document.getElementById("location-screen").classList.remove("hidden");
+}
+
+function startDashboard() {
+    document.getElementById("location-screen").classList.add("hidden");
+    document.getElementById("dashboard").classList.remove("hidden");
+    filterContent('pg'); // Default view
+}
+
+function filterContent(type) {
+    const listings = document.getElementById("listings");
+    const title = document.getElementById("category-title");
+    title.innerText = type.toUpperCase() + " Options in Pune";
+    listings.innerHTML = "";
+
+    data[type].forEach(item => {
+        listings.innerHTML += `
+            <div class="card">
+                <h3>${item.name} ${item.star ? '<span style="color:gold">⭐ (Parental Control)</span>' : ''}</h3>
+                <p>${item.desc}</p>
+                <p><b>${item.price}</b></p>
+                <p style="color: #00f2ff; font-size: 0.8rem;">${item.safety}</p>
+            </div>
+        `;
+    });
 }
 </script>
-
 </body>
 </html>
