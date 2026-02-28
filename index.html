@@ -1,229 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Livzy - Find Your Stay</title>
-
-<style>
-body{
-margin:0;
-font-family: Arial, sans-serif;
-background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-color:white;
-overflow-x:hidden;
-}
-
-/* FIRST PAGE */
-.landing{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-position:relative;
-}
-
-.btn{
-padding:15px 30px;
-background:white;
-color:black;
-border-radius:30px;
-cursor:pointer;
-font-weight:bold;
-transition:0.5s;
-position:absolute;
-}
-
-.student{
-left:-300px;
-animation:slideLeft 1.5s forwards;
-}
-
-.parent{
-right:-300px;
-animation:slideRight 1.5s forwards;
-}
-
-@keyframes slideLeft{
-to{left:40%;}
-}
-
-@keyframes slideRight{
-to{right:40%;}
-}
-
-.btn:hover{
-transform:scale(1.1);
-}
-
-/* SECOND PAGE */
-.dashboard{
-display:none;
-height:100vh;
-position:relative;
-text-align:center;
-}
-
-.subscription{
-position:absolute;
-top:20px;
-right:20px;
-cursor:pointer;
-font-weight:bold;
-}
-
-/* ROTATING CIRCLE */
-.circle-container{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-}
-
-.main-circle{
-width:250px;
-height:250px;
-border-radius:50%;
-background-size:cover;
-background-position:center;
-transition:1s;
-}
-
-.small-circle{
-width:100px;
-height:100px;
-border-radius:50%;
-background:#fff;
-color:black;
-display:flex;
-align-items:center;
-justify-content:center;
-position:absolute;
-cursor:pointer;
-font-weight:bold;
-transition:0.5s;
-}
-
-.small-circle:hover{
-transform:scale(1.1);
-}
-
-/* positions */
-.pg{top:-150px;left:75px;}
-.flat{left:-150px;top:75px;}
-.mess{right:-150px;top:75px;}
-.ent{bottom:-150px;left:75px;}
-
-/* POPUP */
-.popup{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.8);
-justify-content:center;
-align-items:center;
-}
-
-.popup-content{
-background:white;
-color:black;
-padding:30px;
-border-radius:15px;
-width:300px;
-text-align:center;
-animation:fadeIn 0.5s;
-}
-
-@keyframes fadeIn{
-from{opacity:0; transform:scale(0.8);}
-to{opacity:1; transform:scale(1);}
-}
-
-.plan{
-border:1px solid black;
-padding:10px;
-margin:10px 0;
-border-radius:10px;
-}
-
-</style>
+    <title>Livzy</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- LANDING PAGE -->
 <div class="landing">
-<div class="btn student" onclick="enter()">Sign as Student</div>
-<div class="btn parent" onclick="enter()">Sign as Parent</div>
-</div>
+    <div class="option student" onclick="enter()">
+        <h2>SIGN AS A STUDENT</h2>
+    </div>
 
-<!-- DASHBOARD -->
-<div class="dashboard" id="dashboard">
-
-<div class="subscription" onclick="openPopup()">Subscription</div>
-
-<div class="circle-container">
-<div class="main-circle" id="mainImage" style="background-image:url('IMG_8177.jpeg')"></div>
-
-<div class="small-circle pg" onclick="changeImage('IMG_8180.jpeg')">PG</div>
-<div class="small-circle flat" onclick="changeImage('IMG_8177.jpeg')">Flat</div>
-<div class="small-circle mess" onclick="changeImage('IMG_8178.jpeg')">Mess</div>
-<div class="small-circle ent" onclick="changeImage('IMG_8179.jpeg')">Entertainment</div>
-</div>
-
-</div>
-
-<!-- SUBSCRIPTION POPUP -->
-<div class="popup" id="popup">
-<div class="popup-content">
-<h3>Subscription Plans</h3>
-
-<div class="plan">
-<b>Student 3 Month</b><br>
-₹299<br>
-No brokerage fee<br>
-Full access
-</div>
-
-<div class="plan">
-<b>Parental Monthly</b><br>
-₹199<br>
-Parental Supervision
-</div>
-
-<div class="plan">
-<b>Parental Yearly</b><br>
-₹1799<br>
-Full Year Supervision
-</div>
-
-<button onclick="closePopup()">Close</button>
-
-</div>
+    <div class="option parent" onclick="enter()">
+        <h2>SIGN AS A PARENT</h2>
+    </div>
 </div>
 
 <script>
-
 function enter(){
-document.querySelector('.landing').style.display="none";
-document.getElementById('dashboard').style.display="block";
+    alert("Second page will open here later 😌");
 }
-
-function changeImage(img){
-document.getElementById('mainImage').style.backgroundImage="url('"+img+"')";
-}
-
-function openPopup(){
-document.getElementById('popup').style.display="flex";
-}
-
-function closePopup(){
-document.getElementById('popup').style.display="none";
-}
-
 </script>
 
 </body>
