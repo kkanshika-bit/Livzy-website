@@ -1,1 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Livzy | Pune Student Living</title>
 
+<style>
+body{
+margin:0;
+font-family: 'Segoe UI', sans-serif;
+background: linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+color:white;
+overflow-x:hidden;
+}
+
+h1,h2,h3{
+margin:0;
+}
+
+.container{
+display:flex;
+height:100vh;
+}
+
+.sidebar{
+width:220px;
+background: rgba(255,255,255,0.05);
+backdrop-filter: blur(10px);
+padding:20px;
+box-shadow:0 0 30px rgba(0,0,0,0.5);
+}
+
+.sidebar h2{
+margin-bottom:30px;
+font-size:22px;
+}
+
+.tab{
+padding:15px;
+margin-bottom:15px;
+font-weight:bold;
+border-radius:12px;
+cursor:pointer;
+transition:0.4s;
+background: rgba(255,255,255,0.05);
+}
+
+.tab:hover{
+transform:rotateY(15deg) scale(1.05);
+background:rgba(0,255,255,0.2);
+}
+
+.main{
+flex:1;
+padding:30px;
+overflow-y:auto;
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(15px);
+padding:20px;
+border-radius:20px;
+margin-bottom:20px;
+box-shadow:0 10px 40px rgba(0,0,0,0.5);
+transition:0.4s;
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.03);
+}
+
+.star{
+color:gold;
+font-size:18px;
+}
+
+.subscription{
+position:absolute;
+right:20px;
+top:20px;
+width:250px;
+}
+
+.plan{
+background:rgba(255,255,255,0.1);
+padding:20px;
+margin-bottom:15px;
+border-radius:20px;
+transition:0.4s;
+}
+
+.plan:hover{
+transform:scale(1.05);
+background:rgba(0,255,255,0.2);
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:20px;
+background:cyan;
+cursor:pointer;
+font-weight:bold;
+}
+
+.hero{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+animation:fadeIn 2s ease;
+}
+
+.hero h1{
+font-size:50px;
+margin-bottom:20px;
+}
+
+.hero button{
+margin:10px;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(30px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+.hidden{
+display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero" id="landing">
+<h1>Livzy</h1>
+<h3>Find Your Safe Space in Pune</h3>
+<button onclick="enterSite()">Sign in as Student</button>
+<button onclick="enterSite()">Sign in as Parent</button>
+</div>
+
+<div class="container hidden" id="dashboard">
+
+<div class="sidebar">
+<h2>LIVZY</h2>
+<div class="tab">PG</div>
+<div class="tab">FLAT</div>
+<div class="tab">MESS</div>
+<div class="tab">ENTERTAINMENT</div>
+</div>
+
+<div class="main">
+<h1>Famous PGs in Pune</h1>
+
+<div class="card">
+<h3>Stanza Living <span class="star">⭐</span></h3>
+<p>24hrs Water | WiFi | Parking | Electricity Included</p>
+<p>₹10,000 / month</p>
+</div>
+
+<div class="card">
+<h3>Mahadev PG <span class="star">⭐</span></h3>
+<p>24hrs Water | WiFi | Security | Parental Control Available</p>
+<p>₹8,500 / month</p>
+</div>
+
+<div class="card">
+<h3>Veg Mess - FC Road</h3>
+<p>Weekly Menu | Hygienic | ₹3,000 / month</p>
+</div>
+
+<div class="card">
+<h3>Third Space - Entertainment</h3>
+<p>Indoor Games | Study Lounge | Café Hangout</p>
+</div>
+
+</div>
+
+<div class="subscription">
+<div class="plan">
+<h3>Student 3 Month</h3>
+<p>₹299</p>
+<p>No brokerage | Full Access</p>
+<button>Buy Now</button>
+</div>
+
+<div class="plan">
+<h3>Parental Monthly</h3>
+<p>₹199</p>
+<p>Supervision Access</p>
+<button>Buy Now</button>
+</div>
+
+<div class="plan">
+<h3>Parental Yearly</h3>
+<p>₹1799</p>
+<p>Full Year Supervision</p>
+<button>Buy Now</button>
+</div>
+</div>
+
+</div>
+
+<script>
+function enterSite(){
+document.getElementById("landing").classList.add("hidden");
+document.getElementById("dashboard").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
