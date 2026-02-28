@@ -3,182 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livzy | Pune Student Living</title>
+    <title>Livzy | Pune 3D Experience</title>
     <style>
         :root {
+            --neon: #00f2ff;
             --glass: rgba(255, 255, 255, 0.1);
-            --accent: #00f2ff;
-            --bg: #0f0c29;
         }
-
-        * { box-sizing: border-box; }
 
         body {
-            margin: 0; font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: white; min-height: 100vh; overflow-x: hidden;
+            margin: 0;
+            background: radial-gradient(circle at center, #1a1a2e, #0f0c29);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden;
+            height: 100vh;
         }
 
-        /* --- LANDING PAGE --- */
-        .hero {
-            height: 100vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
-            padding: 20px;
+        /* --- Layout --- */
+        .app-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
         }
 
-        .btn-main {
-            background: var(--accent); color: #000; border: none;
-            padding: 15px 30px; margin: 10px; border-radius: 50px;
-            font-weight: bold; cursor: pointer; transition: 0.3s;
-        }
-
-        /* --- DASHBOARD LAYOUT --- */
-        .dashboard-container {
-            display: grid;
-            grid-template-columns: 250px 1fr 300px;
-            min-height: 100vh;
-        }
-
-        /* Responsive for Mobile */
-        @media (max-width: 900px) {
-            .dashboard-container { grid-template-columns: 1fr; }
-            .sidebar, .subscription-panel { width: 100%; position: relative; }
-        }
-
-        /* Sidebars */
-        .sidebar, .subscription-panel {
-            background: var(--glass); backdrop-filter: blur(10px);
-            padding: 20px; border: 1px solid rgba(255,255,255,0.05);
+        /* --- Left Sidebar (Bold Tabs) --- */
+        .sidebar {
+            width: 20%;
+            padding: 40px 20px;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .tab {
-            padding: 15px; margin-bottom: 10px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px; cursor: pointer; font-weight: bold;
-            transition: 0.4s; text-align: center;
+            font-size: 1.2rem;
+            font-weight: 900; /* Extra Bold as requested */
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            background: var(--glass);
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .tab:hover {
-            transform: rotateY(20deg) scale(1.05);
-            background: var(--accent); color: #000;
+            background: var(--neon);
+            color: #000;
+            transform: translateX(10px);
         }
 
-        /* Main Content */
-        .main-content { padding: 30px; }
+        /* --- Center 3D Scene (The Instagram Reel Effect) --- */
+        .stage {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1500px; /* Crucial for 3D depth */
+        }
+
+        .carousel {
+            width: 300px;
+            height: 400px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateCylinder 20s infinite linear;
+        }
+
+        .carousel:hover {
+            animation-play-state: paused; /* Stops to let users read */
+        }
 
         .card {
-            background: var(--glass); padding: 20px;
-            border-radius: 20px; margin-bottom: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.3s;
+            position: absolute;
+            width: 300px;
+            height: 400px;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            backface-visibility: hidden;
         }
 
-        .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        /* Position cards in a 3D circle */
+        .card:nth-child(1) { transform: rotateY(0deg) translateZ(450px); }
+        .card:nth-child(2) { transform: rotateY(120deg) translateZ(450px); }
+        .card:nth-child(3) { transform: rotateY(240deg) translateZ(450px); }
 
-        .hidden { display: none !important; }
-
-        input {
-            padding: 12px; width: 100%; max-width: 300px;
-            border-radius: 10px; border: none; margin-bottom: 20px;
+        @keyframes rotateCylinder {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
         }
 
-        .star { color: gold; font-size: 1.2rem; }
+        /* --- Right Sidebar (Subscriptions) --- */
+        .sub-panel {
+            width: 20%;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .plan-card {
+            background: var(--glass);
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid var(--neon);
+        }
+
+        .star { color: gold; font-size: 1.5rem; }
+        .btn {
+            background: var(--neon);
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
 
-    <div id="landing-screen" class="hero">
-        <h1 style="font-size: 3.5rem; margin: 0;">LIVZY</h1>
-        <p>Your 3D Student Housing Hub in Pune</p>
-        <div>
-            <button class="btn-main" onclick="goToLocation()">Student Sign In</button>
-            <button class="btn-main" onclick="goToLocation()">Parent Sign In</button>
-        </div>
+<div class="app-container">
+    <div class="sidebar">
+        <h1 style="color: var(--neon)">LIVZY</h1>
+        <div class="tab">PG</div>
+        <div class="tab">FLAT</div>
+        <div class="tab">MESS</div>
+        <div class="tab">ENTERTAINMENT</div>
     </div>
 
-    <div id="location-screen" class="hero hidden">
-        <h2>Where in Pune are you looking?</h2>
-        <input type="text" id="userLocation" placeholder="Enter Area (e.g. Viman Nagar)">
-        <button class="btn-main" onclick="enterDashboard()">Find Homes</button>
-    </div>
-
-    <div id="dashboard" class="dashboard-container hidden">
-        <div class="sidebar">
-            <h2 style="color: var(--accent);">LIVZY</h2>
-            <div class="tab" onclick="showCategory('pg')"><b>PG</b></div>
-            <div class="tab" onclick="showCategory('flat')"><b>FLAT</b></div>
-            <div class="tab" onclick="showCategory('mess')"><b>MESS</b></div>
-            <div class="tab" onclick="showCategory('entertainment')"><b>ENTERTAINMENT</b></div>
-        </div>
-
-        <div class="main-content">
-            <h2 id="cat-title">Famous PGs in Pune</h2>
-            <div id="content-list">
+    <div class="stage">
+        <div class="carousel">
+            <div class="card">
+                <div>
+                    <h2>Stanza Living <span class="star">★</span></h2>
+                    <p>Pune, MH</p>
+                    <hr>
+                    <small>WiFi • 24hr Water • Electricity • Parking</small>
                 </div>
-        </div>
-
-        <div class="subscription-panel">
-            <h3>Premium Plans</h3>
-            <div class="card">
-                <h4>Parental Yearly</h4>
-                <p>₹1799 / year</p>
-                <small>Full supervision + Monitor entry/exit times for safety.</small>
-                <button class="btn-main" style="width:100%; margin: 10px 0;">Buy Plan</button>
+                <div style="text-align: center;">
+                    <p><b>₹10,000 / month</b></p>
+                    <button class="btn">View Details</button>
+                </div>
             </div>
+
             <div class="card">
-                <h4>Student 3 Month</h4>
-                <p>₹299</p>
-                <small>Zero Brokerage & Full Site Access</small>
-                <button class="btn-main" style="width:100%; margin: 10px 0;">Buy Plan</button>
+                <div>
+                    <h2>Mahadev Flats</h2>
+                    <p>Semi-Furnished</p>
+                    <hr>
+                    <small>Kitchen • Balcony • Gated Security</small>
+                </div>
+                <div style="text-align: center;">
+                    <p><b>₹18,500 / month</b></p>
+                    <button class="btn">View Details</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div>
+                    <h2>Veg Delight Mess</h2>
+                    <p>FC Road, Pune</p>
+                    <hr>
+                    <small>Weekly Menu • Unlimited Meals • Hygiene 5★</small>
+                </div>
+                <div style="text-align: center;">
+                    <p><b>₹3,000 / month</b></p>
+                    <button class="btn">View Details</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <script>
-        const contentData = {
-            pg: [
-                { name: "Stanza Living", details: "WiFi | 24hr Water | Parking", price: "₹10,500", star: true },
-                { name: "Mahadev PG", details: "Pure Veg | CCTV | Security", price: "₹8,000", star: true }
-            ],
-            flat: [
-                { name: "Fully Furnished 2BHK", details: "Kothrud | AC | Kitchen", price: "₹22,000", star: false },
-                { name: "Non-Furnished Studio", details: "Viman Nagar | High Floor", price: "₹12,000", star: false }
-            ],
-            mess: [
-                { name: "Annapurna Veg Mess", details: "Weekly Menu: Paneer, Dal, Roti", price: "₹3,500/mo", star: false }
-            ],
-            entertainment: [
-                { name: "Third Space", details: "Indoor Sports & Study Lounge", price: "Varies", star: false }
-            ]
-        };
+    <div class="sub-panel">
+        <h3 style="text-align: center;">Premium Plans</h3>
+        <div class="plan-card">
+            <h4>Parental Yearly</h4>
+            <p>₹1799</p>
+            <p>Save 2 months brokerage! Monitor entry/exit times for safety.</p>
+            <button class="btn" style="width:100%">Buy Now</button>
+        </div>
+        <div class="plan-card">
+            <h4>Student 3 Month</h4>
+            <p>₹299</p>
+            <p>Zero Brokerage. Find college-mates!</p>
+            <button class="btn" style="width:100%">Buy Now</button>
+        </div>
+    </div>
+</div>
 
-        function goToLocation() {
-            document.getElementById('landing-screen').classList.add('hidden');
-            document.getElementById('location-screen').classList.remove('hidden');
-        }
-
-        function enterDashboard() {
-            document.getElementById('location-screen').classList.add('hidden');
-            document.getElementById('dashboard').classList.remove('hidden');
-            showCategory('pg');
-        }
-
-        function showCategory(cat) {
-            const list = document.getElementById('content-list');
-            const title = document.getElementById('cat-title');
-            title.innerText = cat.toUpperCase() + " in Pune";
-            list.innerHTML = "";
-
-            contentData[cat].forEach(item => {
-                list.innerHTML += `
-                    <div class="card">
-                        <h3>${item.name} ${item.star ? '<span class="star">★</span>' : ''}</h3>
-                        <p>${item.details}</p>
-                        <p><b>${item.price}</b></p>
-                    </div>
-                `;
-            });
-        }
-    </script>
 </body>
 </html>
